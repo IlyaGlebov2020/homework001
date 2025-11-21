@@ -1,0 +1,12 @@
+numbers = int(input("Please enter a list of numbers: "))
+if numbers < 1000 or numbers > 9999:
+    print("Please enter a number between 1000 and 9999")
+    exit()
+else:
+    digits = str(numbers)
+    listDigits = []
+    for d in digits:
+        listDigits.append(d)
+    listDigits.sort()
+minSum = int(listDigits[0]) * 10 + int(listDigits[1]) * 10 + int(listDigits[2]) + int(listDigits[3])
+print(f'min sum of digits {numbers} is: {minSum}')
