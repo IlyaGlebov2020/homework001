@@ -1,0 +1,32 @@
+date = input('enter date in format YYYY-MM-DD: ')
+if len(date) != 10:
+    print('invalid date')
+    exit(0)
+if int(date[0:4]) < 1900:
+    print('invalid date')
+    exit(0)
+if int(date[0:4]) >= 2026:
+    print('invalid date')
+    exit(0)
+if date[4] != '-' or date[7] != '-':
+    print('invalid date')
+
+def day_of_year(date: str) -> int:
+
+    year = int(date[0:4])
+    month = int(date[5:7])
+    day = int(date[8:10])
+
+    days_in_month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+
+    if (year % 4 == 0 and year % 100 != 0) or (year % 400 == 0):
+        days_in_month[1] = 29
+
+    day_of_year = 0
+    for i in range(month - 1):
+        day_of_year += days_in_month[i]
+    day_of_year += day
+
+    return day_of_year
+
+print(day_of_year(date))
