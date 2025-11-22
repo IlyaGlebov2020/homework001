@@ -1,0 +1,19 @@
+def shift(c, k):
+    k %= 26
+    return chr((ord(c) - ord('a') + k) % 26 + ord('a'))
+
+def shiftingLetters(s, shifts):
+    n = len(s)
+    res = []
+
+    total_shift = 0
+    for i in range(n - 1, -1, -1):
+        total_shift = (total_shift + shifts[i]) % 26
+        res.append(shift(s[i], total_shift))
+
+    return "".join(res[::-1])
+
+
+print(shiftingLetters("abc", [3, 5, 9]))  # rpl
+print(shiftingLetters("aaa", [1, 2, 3]))  # gfd
+print(shiftingLetters("xyz", [3, 5, 9]))  # omi
