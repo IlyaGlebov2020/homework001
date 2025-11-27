@@ -1,0 +1,32 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+df = pd.read_csv("2_query_data_clean - cleanData01.csv")
+
+cities = ["Москва", "Мумбаи", "Пекин", "Санкт-Петербург", "Анкара"]
+
+for city in cities:
+    df_city = df[df["город отправки"] == city]
+
+    top_suppliers = (
+        df_city.sort_values("Рейтинг", ascending=False)
+               .head(10)
+    )
+
+    if len(top_suppliers) == 0:
+        print(f"Нет данных для города {city}")
+        continue
+
+    plt.figure(figsize=(10, 6))
+
+    for supplier_name, group in top_suppliers.groupby("Имя поставщика"):
+        plt.plot(group["ID поставщика"],  # или другой временной/индексный столбец
+                 group["Стоимость доставки за кг"],
+                 label=supplier_name)
+
+    plt.title(f"Изменение стоимости доставки за кг — ТОП 10 поставщиков, {city}")
+    plt.xlabel("ID поставщика")
+    plt.ylabel("Стоимость доставки за кг")
+    plt.legend()
+    plt.grid(True)
+    plt.show()
