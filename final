@@ -1,0 +1,13 @@
+import pandas as pd
+
+# Пример входных данных
+df = pd.DataFrame({
+    'office_id': [1, 2, 3, 4],
+    'country': ['USA', 'Canada', 'USA', 'Germany'],
+    'state_province': ['CA', None, 'NY', '']   # пропуски: None или пустая строка
+})
+
+# Создание булевого отчёта: True — значение указано, False — пропущено
+df['state_province_present'] = df['state_province'].notna() & (df['state_province'] != '')
+
+print(df)
