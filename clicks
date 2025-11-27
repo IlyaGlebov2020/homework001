@@ -1,0 +1,37 @@
+import pandas as pd
+df = pd.read_csv("Site_clicks.csv")
+
+#самая популярная категория
+category_sums = df.drop(columns=['день']).sum()
+most_popular = category_sums.idxmax()
+print("Самая популярная категория:", most_popular)
+
+#график изменения количества кликов по этой категории за месяц
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=(8, 4))
+plt.plot(df['день'], df[most_popular])
+plt.xlabel("День")
+plt.ylabel("Количество кликов")
+plt.title(f"Динамика кликов: {most_popular}")
+plt.grid(True)
+plt.show()
+
+#самые 4 непопулярных категории
+least_4 = category_sums.sort_values().head(4).index
+print("4 самые непопулярные категории:")
+print(list(least_4))
+
+#Графики изменения количества кликов по 4 непопулярным категориям
+
+plt.figure(figsize=(10, 6))
+
+for cat in least_4:
+    plt.plot(df['день'], df[cat], label=cat)
+
+plt.xlabel("День")
+plt.ylabel("Клики")
+plt.title("Динамика кликов по 4 наименее популярным категориям")
+plt.legend()
+plt.grid(True)
+plt.show()
